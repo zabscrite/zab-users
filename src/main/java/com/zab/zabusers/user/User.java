@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.user;
 
 import lombok.Getter;
 import lombok.Setter;
