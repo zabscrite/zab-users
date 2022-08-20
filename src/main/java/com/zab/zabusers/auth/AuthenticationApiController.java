@@ -1,11 +1,11 @@
 package com.zab.zabusers.auth;
 
-import com.zab.zabusers.auth.jwt.JwtUserDetailsService;
 import com.zab.zabusers.auth.jwt.JwtGenerator;
+import com.zab.zabusers.user.User;
+import com.zab.zabusers.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +19,19 @@ public class AuthenticationApiController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtUserDetailsService userDetailsService;
+    private UserService userService;
 
     @Autowired
     private JwtGenerator jwtGenerator;
 
     @PostMapping
-    public String generateJwt(@RequestBody LoginRequest request) {
+    public LoginResponse generateJwt(@RequestBody LoginRequest request) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword());
         authenticationManager.authenticate(authToken);
-        UserDetails user = userDetailsService.loadUserByUsername(request.getUsername());
-        return jwtGenerator.generateToken(user);
+
+        User user = userService.fetchByUsername(request.getUsername());
+        String jwt = jwtGenerator.generateToken(user);
+        return new LoginResponse(user, jwt);
     }
 }
