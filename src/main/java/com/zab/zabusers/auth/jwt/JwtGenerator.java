@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.auth.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

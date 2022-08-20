@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.auth.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

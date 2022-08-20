@@ -1,7 +1,7 @@
 package com.zab.zabusers.auth;
 
-import com.zab.zabusers.JwtGenerator;
-import com.zab.zabusers.JwtUserDetailsService;
+import com.zab.zabusers.auth.jwt.JwtUserDetailsService;
+import com.zab.zabusers.auth.jwt.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
