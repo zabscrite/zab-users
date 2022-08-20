@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.team;
 
 import lombok.Getter;
 import lombok.Setter;

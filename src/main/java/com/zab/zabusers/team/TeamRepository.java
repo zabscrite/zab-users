@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.team;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

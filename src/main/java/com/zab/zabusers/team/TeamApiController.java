@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.team;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
