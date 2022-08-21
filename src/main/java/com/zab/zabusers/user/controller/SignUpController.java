@@ -1,7 +1,9 @@
-package com.zab.zabusers.user;
+package com.zab.zabusers.user.controller;
 
+import com.zab.zabusers.user.domain.SignUpService;
+import com.zab.zabusers.user.domain.SignupException;
+import com.zab.zabusers.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

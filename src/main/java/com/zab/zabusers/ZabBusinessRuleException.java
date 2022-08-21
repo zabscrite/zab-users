@@ -7,7 +7,7 @@ public abstract class ZabBusinessRuleException extends Exception {
     }
 
     public String getCode() {
-        return "zab." + getNamespace();
+        return "zab.zab-users" + getNamespace();
     }
 
     public abstract String getNamespace();

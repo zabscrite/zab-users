@@ -1,4 +1,4 @@
-package com.zab.zabusers.auth;
+package com.zab.zabusers.auth.controller;
 
 import lombok.Getter;
 import lombok.Setter;

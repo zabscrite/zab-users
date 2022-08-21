@@ -1,7 +1,7 @@
-package com.zab.zabusers.auth;
+package com.zab.zabusers.auth.controller;
 
-import com.zab.zabusers.user.User;
-import com.zab.zabusers.user.UserResponse;
+import com.zab.zabusers.user.domain.User;
+import com.zab.zabusers.user.controller.UserResponse;
 import lombok.Getter;
 
 @Getter

@@ -1,6 +1,6 @@
 package com.zab.zabusers.auth.jwt;
 
-import com.zab.zabusers.user.User;
+import com.zab.zabusers.user.domain.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;

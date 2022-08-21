@@ -1,6 +1,6 @@
 package com.zab.zabusers.auth.jwt;
 
-import com.zab.zabusers.user.User;
+import com.zab.zabusers.user.domain.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.zab.zabusers.user;
+package com.zab.zabusers.user.domain;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

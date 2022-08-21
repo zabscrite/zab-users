@@ -1,4 +1,4 @@
-package com.zab.zabusers.user;
+package com.zab.zabusers.user.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

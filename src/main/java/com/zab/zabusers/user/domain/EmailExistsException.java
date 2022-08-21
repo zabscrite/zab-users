@@ -1,5 +1,6 @@
-package com.zab.zabusers.user;
+package com.zab.zabusers.user.domain;
 
+import com.zab.zabusers.user.domain.SignupException;
 import lombok.Getter;
 
 public class EmailExistsException extends SignupException {

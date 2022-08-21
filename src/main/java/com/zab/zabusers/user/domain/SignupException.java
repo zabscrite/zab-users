@@ -1,4 +1,4 @@
-package com.zab.zabusers.user;
+package com.zab.zabusers.user.domain;
 
 import com.zab.zabusers.ZabBusinessRuleException;
 
@@ -9,6 +9,6 @@ public abstract class SignupException extends ZabBusinessRuleException {
 
     @Override
     public String getNamespace() {
-        return "sign-up";
+        return ".sign-up";
     }
 }
