@@ -1,16 +1,15 @@
-package com.zab.zabusers.auth;
+package com.zab.zabusers.user;
 
-import com.zab.zabusers.user.User;
 import lombok.Getter;
 
 @Getter
-public class LoginUserResponse {
+public class UserResponse {
 
     private Long id;
 
     private String username;
 
-    public LoginUserResponse(User user) {
+    public UserResponse(User user) {
         id = user.getId();
         username = user.getUsername();
     }
