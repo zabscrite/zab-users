@@ -31,6 +31,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.tngtech.archunit:archunit-junit5:1.0.0-rc1'
 }
 
 tasks.named('test') {
