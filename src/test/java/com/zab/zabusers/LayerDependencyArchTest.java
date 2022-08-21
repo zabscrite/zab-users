@@ -1,4 +1,4 @@
-package com.zab.zabusers.user;
+package com.zab.zabusers;
 
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
