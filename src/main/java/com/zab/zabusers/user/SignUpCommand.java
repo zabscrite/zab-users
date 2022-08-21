@@ -14,7 +14,6 @@ public class SignUpCommand {
     public User getUser() {
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
 
         return user;
     }

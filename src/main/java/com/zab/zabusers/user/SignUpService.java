@@ -1,6 +1,7 @@
 package com.zab.zabusers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,8 +10,14 @@ public class SignUpService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public User signUp(SignUpCommand command) {
         User user = command.getUser();
+
+        String passwordHash = passwordEncoder.encode(command.getPassword());
+        user.setPassword(passwordHash);
         userRepository.save(user);
         return user;
     }
