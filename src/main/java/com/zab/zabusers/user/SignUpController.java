@@ -17,7 +17,7 @@ public class SignUpController {
     private SignUpService signUpService;
 
     @PostMapping
-    public UserResponse signUp(@RequestBody @Valid SignUpRequest request) {
+    public UserResponse signUp(@RequestBody @Valid SignUpRequest request) throws SignupException {
         User user = signUpService.signUp(request.toCommand());
         return new UserResponse(user);
     }
