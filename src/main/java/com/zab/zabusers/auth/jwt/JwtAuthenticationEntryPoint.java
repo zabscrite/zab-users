@@ -1,4 +1,4 @@
-package com.zab.zabusers.auth;
+package com.zab.zabusers.auth.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

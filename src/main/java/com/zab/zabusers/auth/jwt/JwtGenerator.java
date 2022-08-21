@@ -21,7 +21,7 @@ public class JwtGenerator {
 
     public String generateToken(User user) {
         Map<String, Object> claims = getClaims(user);
-        Date expirationDate = new Date(System.currentTimeMillis() + jwtTokenValidityMs * 1000);
+        Date expirationDate = new Date(System.currentTimeMillis() + jwtTokenValidityMs);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getUsername())
