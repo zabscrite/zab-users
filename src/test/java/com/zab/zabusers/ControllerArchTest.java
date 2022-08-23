@@ -1,7 +1,10 @@
 package com.zab.zabusers;
 
 import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.*;
+import com.tngtech.archunit.core.domain.JavaAnnotation;
+import com.tngtech.archunit.core.domain.JavaClass;
+import com.tngtech.archunit.core.domain.JavaMethod;
+import com.tngtech.archunit.core.domain.JavaParameter;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchCondition;
@@ -29,8 +32,7 @@ class ControllerArchTest {
                 @Override
                 public void check(JavaMethod method, ConditionEvents events) {
                     List<Set<JavaAnnotation<JavaParameter>>> parameterAnnotations = method.getParameterAnnotations();
-                    if(!parameterAnnotations.isEmpty() && !containsValidAnnotation(parameterAnnotations))
-                    {
+                    if (!parameterAnnotations.isEmpty() && !containsValidAnnotation(parameterAnnotations)) {
                         String message = String.format("Method %s annotated with @Valid", method.getFullName());
                         events.add(SimpleConditionEvent.violated(method, message));
                     }
@@ -46,6 +48,7 @@ class ControllerArchTest {
                 }
             };
 
+
     @ArchTest
     public static final ArchRule controllersShouldHaveNamesEndingController =
             classes().that().areAnnotatedWith(RestController.class)
@@ -54,12 +57,6 @@ class ControllerArchTest {
     public static final ArchRule controllersShouldResideInAControllerPackage =
             classes().that().areAnnotatedWith(RestController.class)
                     .should().resideInAPackage("..controller");
-
-    @ArchTest
-    public static final ArchRule controllersShouldBeAnnotatedWithRestController =
-            classes().that(residesInControllerPackage)
-                    .and().haveSimpleNameEndingWith("Controller")
-                    .should().beAnnotatedWith(RestController.class);
 
     @ArchTest
     public static final ArchRule publicControllerMethodsShouldBeAnnotatedWithRequestMethodMappings =
@@ -71,9 +68,14 @@ class ControllerArchTest {
                     .orShould().beAnnotatedWith(DeleteMapping.class);
 
     @ArchTest
+    public static final ArchRule controllersShouldBeAnnotatedWithRestController =
+            classes().that(residesInControllerPackage)
+                    .and().haveSimpleNameEndingWith("Controller")
+                    .should().beAnnotatedWith(RestController.class);
+
+    @ArchTest
     public static final ArchRule publicControllerMethodParametersAreValidated =
             methods().that().areDeclaredInClassesThat().areAnnotatedWith(RestController.class)
                     .and().arePublic()
                     .should(haveAllParamsValidated);
-
 }
