@@ -14,10 +14,10 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 public class ComponentDependencyArchTest {
 
     private static final String JWT_COMPONENT = "com.zab.zabusers.shared.auth.jwt..";
-    private static final String USER_COMPONENT = "com.zab.zabusers.user..";
+    private static final String TEAM_COMPONENT = "com.zab.zabusers.team..";
 
     private static final DescribedPredicate<JavaClass> inJwtComponent = resideInAPackage(JWT_COMPONENT);
-    private static final DescribedPredicate<JavaClass> inUserComponent = resideInAPackage(USER_COMPONENT);
+    private static final DescribedPredicate<JavaClass> inTeamComponent = resideInAPackage(TEAM_COMPONENT);
 
 
     @ArchTest
@@ -25,8 +25,8 @@ public class ComponentDependencyArchTest {
             noClasses().that().resideOutsideOfPackage(JWT_COMPONENT)
                     .should().dependOnClassesThat(inJwtComponent);
     @ArchTest
-    public static final ArchRule userComponentDependency =
-            classes().that(inUserComponent)
-                    .should().onlyHaveDependentClassesThat(inUserComponent.or(inJwtComponent))
-                    .as("User component should only be accessed by JWT");
+    public static final ArchRule teamComponentDependency =
+            classes().that(inTeamComponent)
+                    .should().onlyHaveDependentClassesThat(inTeamComponent.or(inJwtComponent))
+                    .as("Team component should only be accessed by JWT");
 }

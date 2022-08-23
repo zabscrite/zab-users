@@ -1,6 +1,6 @@
-package com.zab.zabusers.user.controller;
+package com.zab.zabusers.team.controller;
 
-import com.zab.zabusers.user.domain.User;
+import com.zab.zabusers.team.domain.User;
 import lombok.Getter;
 
 @Getter

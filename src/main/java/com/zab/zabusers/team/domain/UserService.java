@@ -1,4 +1,4 @@
-package com.zab.zabusers.user.domain;
+package com.zab.zabusers.team.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

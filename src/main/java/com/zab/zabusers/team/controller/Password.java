@@ -1,4 +1,4 @@
-package com.zab.zabusers.user.controller;
+package com.zab.zabusers.team.controller;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

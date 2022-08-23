@@ -1,6 +1,6 @@
-package com.zab.zabusers.user.controller;
+package com.zab.zabusers.team.controller;
 
-import com.zab.zabusers.user.domain.SignUpCommand;
+import com.zab.zabusers.team.domain.signup.SignUpCommand;
 import lombok.Getter;
 import lombok.Setter;
 

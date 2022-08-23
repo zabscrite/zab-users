@@ -1,4 +1,4 @@
-package com.zab.zabusers.user.domain;
+package com.zab.zabusers.team.domain;
 
 import lombok.Getter;
 import lombok.Setter;

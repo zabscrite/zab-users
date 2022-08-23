@@ -1,7 +1,7 @@
 package com.zab.zabusers.shared.auth.jwt.domain;
 
-import com.zab.zabusers.user.domain.User;
-import com.zab.zabusers.user.domain.UserRepository;
+import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

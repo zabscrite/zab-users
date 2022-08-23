@@ -1,5 +1,8 @@
-package com.zab.zabusers.user.domain;
+package com.zab.zabusers.team.domain.signup;
 
+import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.UserRepository;
+import com.zab.zabusers.team.domain.signup.exception.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

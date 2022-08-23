@@ -2,8 +2,8 @@ package com.zab.zabusers.shared.auth.jwt.controller;
 
 import com.zab.zabusers.shared.auth.jwt.domain.JwtGenerator;
 import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetails;
-import com.zab.zabusers.user.domain.User;
-import com.zab.zabusers.user.domain.UserService;
+import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
