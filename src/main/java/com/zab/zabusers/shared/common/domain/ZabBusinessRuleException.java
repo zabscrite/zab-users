@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.shared.common.domain;
 
 public abstract class ZabBusinessRuleException extends Exception {
 

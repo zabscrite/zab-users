@@ -1,4 +1,4 @@
-package com.zab.zabusers.auth.controller;
+package com.zab.zabusers.shared.auth.jwt.controller;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
-package com.zab.zabusers;
+package com.zab.zabusers.shared.common.controller;
 
+import com.zab.zabusers.shared.common.domain.ZabBusinessRuleException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

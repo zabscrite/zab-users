@@ -1,7 +1,7 @@
-package com.zab.zabusers.auth.controller;
+package com.zab.zabusers.shared.auth.jwt.controller;
 
-import com.zab.zabusers.auth.jwt.JwtGenerator;
-import com.zab.zabusers.auth.jwt.JwtUserDetails;
+import com.zab.zabusers.shared.auth.jwt.domain.JwtGenerator;
+import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetails;
 import com.zab.zabusers.user.domain.User;
 import com.zab.zabusers.user.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

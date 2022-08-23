@@ -1,5 +1,6 @@
-package com.zab.zabusers.auth.jwt;
+package com.zab.zabusers.shared.auth.jwt.controller;
 
+import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwt;

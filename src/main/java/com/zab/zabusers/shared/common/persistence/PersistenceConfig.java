@@ -1,4 +1,4 @@
-package com.zab.zabusers;
+package com.zab.zabusers.shared.common.persistence;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

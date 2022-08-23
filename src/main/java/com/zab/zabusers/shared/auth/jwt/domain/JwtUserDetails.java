@@ -1,4 +1,4 @@
-package com.zab.zabusers.auth.jwt;
+package com.zab.zabusers.shared.auth.jwt.domain;
 
 import com.zab.zabusers.user.domain.User;
 import lombok.Getter;

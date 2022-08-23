@@ -1,7 +1,7 @@
-package com.zab.zabusers;
+package com.zab.zabusers.shared.auth.jwt.controller;
 
-import com.zab.zabusers.auth.jwt.JwtAuthenticationEntryPoint;
-import com.zab.zabusers.auth.jwt.JwtRequestFilter;
+import com.zab.zabusers.shared.auth.jwt.controller.JwtAuthenticationEntryPoint;
+import com.zab.zabusers.shared.auth.jwt.controller.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
