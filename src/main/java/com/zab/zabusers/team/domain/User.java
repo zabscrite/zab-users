@@ -31,6 +31,11 @@ public class User {
 
     @Getter
     @Setter
+    @Column(nullable = false)
+    private String name;
+
+    @Getter
+    @Setter
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
