@@ -1,5 +1,6 @@
-package com.zab.zabusers.shared.common.controller;
+package com.zab.zabusers.shared.common.api.controller;
 
+import com.zab.zabusers.shared.common.api.request.EntityFieldNotFoundException;
 import com.zab.zabusers.shared.common.domain.ZabBusinessRuleException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -42,6 +45,15 @@ public class ControllerExceptionHandler {
             put("code", exception.getCode());
             put("message", exception.getMessage());
             put("arguments", arguments);
+        }}, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(EntityFieldNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleEntityFieldNotFoundException(EntityFieldNotFoundException exception) {
+        return new ResponseEntity<>(new LinkedHashMap<String, Object>() {{
+            put("message", exception.getMessage());
+            put("field", exception.getFieldName());
+            put("value", exception.getId());
         }}, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
