@@ -20,6 +20,7 @@ public class SubscriptionRequestConverter {
 
 
     public SubscriptionRequestCommand convert(SubscriptionRequest request) throws Exception {
+        // TODO: Add validation that customers and subscription plan bounded to current team
         SubscriptionRequestCommand command = new SubscriptionRequestCommand();
 
         Customer customer = customerRepository.findById(request.getCustomerId())
