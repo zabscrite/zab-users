@@ -1,4 +1,4 @@
-package com.zab.zabusers.shared.common.controller;
+package com.zab.zabusers.shared.common.api.controller;
 
 import lombok.Getter;
 import lombok.Setter;
