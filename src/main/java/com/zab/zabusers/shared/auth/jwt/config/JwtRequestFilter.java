@@ -1,5 +1,6 @@
 package com.zab.zabusers.shared.auth.jwt.config;
 
+import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetails;
 import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -37,7 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 Jwt jwt = extractJwt(request.getHeader(HttpHeaders.AUTHORIZATION));
-                UserDetails userDetails = extractUserDetails(jwt);
+                JwtUserDetails userDetails = extractMaskedUserDetails(jwt);
                 UsernamePasswordAuthenticationToken token = createAuthentication(request, userDetails);
                 SecurityContextHolder.getContext().setAuthentication(token);
             }
@@ -65,16 +66,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         return Jwts.parser().setSigningKey(jwtSecretKey).parse(jwt);
     }
 
-    private UserDetails extractUserDetails(Jwt jwt) {
+    private JwtUserDetails extractMaskedUserDetails(Jwt jwt) {
         String username = ((Claims) jwt.getBody()).getSubject();
-        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
-        return userDetails;
+        JwtUserDetails jwtUserDetails = (JwtUserDetails) jwtUserDetailsService.loadUserByUsername(username);
+        jwtUserDetails.eraseCredentials();
+
+        return jwtUserDetails;
     }
 
     private UsernamePasswordAuthenticationToken createAuthentication(HttpServletRequest request, UserDetails userDetails) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+        UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        return usernamePasswordAuthenticationToken;
+        token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        return token;
     }
 }

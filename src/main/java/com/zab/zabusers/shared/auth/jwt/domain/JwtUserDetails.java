@@ -51,4 +51,8 @@ public class JwtUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void eraseCredentials() {
+        user.eraseCredentials();
+    }
 }
