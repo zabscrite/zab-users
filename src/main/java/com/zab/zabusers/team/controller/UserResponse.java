@@ -8,10 +8,13 @@ public class UserResponse {
 
     private Long id;
 
-    private String username;
+    private String name;
+
+    private String emailAddress;
 
     public UserResponse(User user) {
         id = user.getId();
-        username = user.getUsername();
+        name = user.getName();
+        emailAddress = user.getUsername();
     }
 }
