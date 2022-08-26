@@ -1,4 +1,4 @@
-package com.zab.zabusers.shared.auth.jwt.controller;
+package com.zab.zabusers.shared.auth.jwt.config;
 
 import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetailsService;
 import io.jsonwebtoken.Claims;

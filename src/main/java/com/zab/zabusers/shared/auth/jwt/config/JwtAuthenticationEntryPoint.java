@@ -1,4 +1,4 @@
-package com.zab.zabusers.shared.auth.jwt.controller;
+package com.zab.zabusers.shared.auth.jwt.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
