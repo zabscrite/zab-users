@@ -12,6 +12,10 @@ public class SignUpCommand {
 
     private String password;
 
+    public String getEmailAddress() {
+        return username;
+    }
+
     public User getUser() {
         User user = new User();
         user.setUsername(username);
