@@ -1,8 +1,11 @@
 package com.zab.zabusers.shared.auth.jwt.domain;
 
+import com.zab.zabusers.team.domain.Team;
+import com.zab.zabusers.team.domain.TeamRepository;
 import com.zab.zabusers.team.domain.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,16 +14,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class JwtGenerator {
+public class JwtGeneratorService {
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Value("${jwt.token_validity}")
-    public long jwtTokenValidityMs;
+    private long jwtTokenValidityMs;
 
     @Value("${jwt.secret_key}")
     private String jwtSecretKey;
 
-    public String generateToken(User user) {
-        Map<String, Object> claims = getClaims(user);
+    public String generateToken(User user, Team team) {
+        Map<String, Object> claims = getClaims(user, team);
         Date expirationDate = new Date(System.currentTimeMillis() + jwtTokenValidityMs);
         return Jwts.builder()
                 .setClaims(claims)
@@ -31,9 +37,18 @@ public class JwtGenerator {
                 .compact();
     }
 
-    private Map<String, Object> getClaims(User user) {
+    private Map<String, Object> getClaims(User user, Team team) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", user.getUsername());
+        claims.put("team", getTeamClaims(team));
+        return claims;
+    }
+
+    private Map<String, Object> getTeamClaims(Team team) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", team.getId());
+        claims.put("name", team.getName());
+
         return claims;
     }
 }
