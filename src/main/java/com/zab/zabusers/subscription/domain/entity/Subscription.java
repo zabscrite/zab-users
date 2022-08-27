@@ -17,6 +17,7 @@ import java.util.Date;
 public class Subscription {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "subscriptions_id_seq")
     @EqualsAndHashCode.Include
     private Long id;

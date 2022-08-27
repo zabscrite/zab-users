@@ -8,6 +8,8 @@ import java.util.Date;
 @Getter
 public class SubscriptionResponse {
 
+    private Long id;
+
     private SubscriptionPlanResponse plan;
 
     private CustomerResponse customer;
@@ -17,6 +19,7 @@ public class SubscriptionResponse {
     private Date expirationDate;
 
     public SubscriptionResponse(Subscription subscription) {
+        id = subscription.getId();
         plan = new SubscriptionPlanResponse(subscription.getPlan());
         customer = new CustomerResponse(subscription.getCustomer());
 
