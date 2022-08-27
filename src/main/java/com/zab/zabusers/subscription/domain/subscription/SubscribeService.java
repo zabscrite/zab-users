@@ -64,10 +64,8 @@ public class SubscribeService {
         return toUtcLocalDateTime(Instant.ofEpochMilli(date.getTime()));
     }
 
-    private LocalDateTime toUtcLocalDateTime(Instant x) {
-        return x
-                .atZone(ZoneId.of("UTC"))
-                .toLocalDateTime();
+    private LocalDateTime toUtcLocalDateTime(Instant instant) {
+        return instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
     }
 
 }
