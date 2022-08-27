@@ -27,21 +27,28 @@ public class SubscriptionRequestConverter {
     public SubscriptionRequestCommand convert(SubscriptionRequest request) throws Exception {
         Team team = loginContextService.getCurrentTeam();
         SubscriptionRequestCommand command = new SubscriptionRequestCommand();
+        command.setCustomer(fetchCustomer(request, team));
+        command.setPlan(fetchPlan(request, team));
+        command.setEffectivityDate(request.getEffectivityDate());
 
+        return command;
+    }
+
+    private Customer fetchCustomer(SubscriptionRequest request, Team team) throws EntityFieldNotFoundException {
         Customer customer = customerRepository.findById(request.getCustomerId())
                 .orElseThrow(() -> new EntityFieldNotFoundException(Customer.class, "customer", request.getCustomerId()));
         if (!team.equals(customer.getTeam())) {
             throw new EntityFieldNotFoundException(Customer.class, "customer", request.getCustomerId());
         }
-        command.setCustomer(customer);
+        return customer;
+    }
 
+    private SubscriptionPlan fetchPlan(SubscriptionRequest request, Team team) throws EntityFieldNotFoundException {
         SubscriptionPlan plan = subscriptionPlanRepository.findById(request.getSubscriptionPlanId())
                 .orElseThrow(() -> new EntityFieldNotFoundException(SubscriptionPlan.class, "plan", request.getSubscriptionPlanId()));
         if (!team.equals(plan.getTeam())) {
             throw new EntityFieldNotFoundException(SubscriptionPlan.class, "plan", request.getSubscriptionPlanId());
         }
-        command.setPlan(plan);
-
-        return command;
+        return plan;
     }
 }
