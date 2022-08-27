@@ -1,7 +1,9 @@
 package com.zab.zabusers.shared.auth.jwt.domain;
 
+import com.zab.zabusers.team.domain.Team;
 import com.zab.zabusers.team.domain.User;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +14,9 @@ public class JwtUserDetails implements UserDetails {
 
     @Getter
     private final User user;
+
+    @Getter @Setter
+    private Team team;
 
     public JwtUserDetails(User user) {
         this.user = user;

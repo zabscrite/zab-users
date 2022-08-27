@@ -25,8 +25,9 @@ public class JwtGeneratorService {
     @Value("${jwt.secret_key}")
     private String jwtSecretKey;
 
-    public String generateToken(User user, Team team) {
-        Map<String, Object> claims = getClaims(user, team);
+    public String generateToken(JwtUserDetails jwtUserDetails) {
+        User user = jwtUserDetails.getUser();
+        Map<String, Object> claims = getClaims(user, jwtUserDetails.getTeam());
         Date expirationDate = new Date(System.currentTimeMillis() + jwtTokenValidityMs);
         return Jwts.builder()
                 .setClaims(claims)

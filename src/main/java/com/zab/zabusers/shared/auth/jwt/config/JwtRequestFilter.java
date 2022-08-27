@@ -67,8 +67,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private JwtUserDetails extractMaskedUserDetails(Jwt jwt) {
-        String username = ((Claims) jwt.getBody()).getSubject();
-        JwtUserDetails jwtUserDetails = (JwtUserDetails) jwtUserDetailsService.loadUserByUsername(username);
+        Claims claims = (Claims) jwt.getBody();
+        JwtUserDetails jwtUserDetails = jwtUserDetailsService.fetchDetails(claims);
         jwtUserDetails.eraseCredentials();
 
         return jwtUserDetails;
