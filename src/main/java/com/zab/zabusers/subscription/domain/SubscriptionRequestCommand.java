@@ -14,4 +14,11 @@ public class SubscriptionRequestCommand {
 
     private SubscriptionPlan plan;
 
+    public Subscription getSubscription() {
+        Subscription subscription = new Subscription();
+        subscription.setCustomer(getCustomer());
+        subscription.setPlan(getPlan());
+
+        return subscription;
+    }
 }
