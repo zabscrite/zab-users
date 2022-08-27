@@ -6,13 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "subscription_plans")
@@ -34,4 +28,13 @@ public class SubscriptionPlan {
     @Setter
     @ManyToOne(optional = false)
     private Team team;
+
+    @Getter
+    @Setter
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "value", column = @Column(name = "duration_value")),
+            @AttributeOverride(name = "unit", column = @Column(name = "duration_unit"))
+    })
+    private SubscriptionPlanDuration duration;
 }
