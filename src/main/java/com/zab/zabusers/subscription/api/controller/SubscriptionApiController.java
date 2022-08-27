@@ -2,6 +2,7 @@ package com.zab.zabusers.subscription.api.controller;
 
 import com.zab.zabusers.subscription.api.request.SubscriptionRequest;
 import com.zab.zabusers.subscription.api.request.SubscriptionRequestConverter;
+import com.zab.zabusers.subscription.api.response.SubscriptionResponse;
 import com.zab.zabusers.subscription.domain.SubscribeService;
 import com.zab.zabusers.subscription.domain.Subscription;
 import com.zab.zabusers.subscription.domain.SubscriptionRequestCommand;
@@ -24,11 +25,11 @@ public class SubscriptionApiController {
     private SubscribeService subscribeService;
 
     @PostMapping
-    public Subscription create(@RequestBody @Valid SubscriptionRequest request) throws Exception {
+    public SubscriptionResponse create(@RequestBody @Valid SubscriptionRequest request) throws Exception {
         SubscriptionRequestCommand command = converter.convert(request);
         Subscription subscription = subscribeService.subscribe(command);
 
-        return subscription;
+        return new SubscriptionResponse(subscription);
     }
 
 }
