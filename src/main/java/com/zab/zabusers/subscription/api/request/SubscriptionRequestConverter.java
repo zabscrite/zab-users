@@ -2,12 +2,12 @@ package com.zab.zabusers.subscription.api.request;
 
 import com.zab.zabusers.shared.auth.security.LoginContextService;
 import com.zab.zabusers.shared.common.api.request.EntityFieldNotFoundException;
-import com.zab.zabusers.subscription.domain.Customer;
-import com.zab.zabusers.subscription.domain.CustomerRepository;
-import com.zab.zabusers.subscription.domain.SubscriptionPlan;
-import com.zab.zabusers.subscription.domain.SubscriptionPlanRepository;
-import com.zab.zabusers.subscription.domain.SubscriptionRequestCommand;
-import com.zab.zabusers.team.domain.Team;
+import com.zab.zabusers.subscription.domain.entity.Customer;
+import com.zab.zabusers.subscription.domain.repository.CustomerRepository;
+import com.zab.zabusers.subscription.domain.entity.SubscriptionPlan;
+import com.zab.zabusers.subscription.domain.repository.SubscriptionPlanRepository;
+import com.zab.zabusers.subscription.domain.subscription.SubscriptionRequestCommand;
+import com.zab.zabusers.team.domain.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,10 +44,10 @@ public class SubscriptionRequestConverter {
     }
 
     private SubscriptionPlan fetchPlan(SubscriptionRequest request, Team team) throws EntityFieldNotFoundException {
-        SubscriptionPlan plan = subscriptionPlanRepository.findById(request.getSubscriptionPlanId())
-                .orElseThrow(() -> new EntityFieldNotFoundException(SubscriptionPlan.class, "plan", request.getSubscriptionPlanId()));
+        SubscriptionPlan plan = subscriptionPlanRepository.findById(request.getPlanId())
+                .orElseThrow(() -> new EntityFieldNotFoundException(SubscriptionPlan.class, "plan", request.getPlanId()));
         if (!team.equals(plan.getTeam())) {
-            throw new EntityFieldNotFoundException(SubscriptionPlan.class, "plan", request.getSubscriptionPlanId());
+            throw new EntityFieldNotFoundException(SubscriptionPlan.class, "plan", request.getPlanId());
         }
         return plan;
     }

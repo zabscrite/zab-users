@@ -1,6 +1,6 @@
 package com.zab.zabusers.team.domain.signup;
 
-import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 

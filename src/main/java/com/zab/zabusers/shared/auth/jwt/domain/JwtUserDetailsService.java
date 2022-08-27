@@ -1,9 +1,9 @@
 package com.zab.zabusers.shared.auth.jwt.domain;
 
-import com.zab.zabusers.team.domain.Team;
-import com.zab.zabusers.team.domain.TeamRepository;
-import com.zab.zabusers.team.domain.User;
-import com.zab.zabusers.team.domain.UserRepository;
+import com.zab.zabusers.team.domain.entity.Team;
+import com.zab.zabusers.team.domain.repository.TeamRepository;
+import com.zab.zabusers.team.domain.entity.User;
+import com.zab.zabusers.team.domain.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

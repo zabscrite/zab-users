@@ -1,6 +1,6 @@
-package com.zab.zabusers.subscription.domain;
+package com.zab.zabusers.subscription.domain.entity;
 
-import com.zab.zabusers.team.domain.Team;
+import com.zab.zabusers.team.domain.entity.Team;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.zab.zabusers.subscription.api.response;
 
-import com.zab.zabusers.subscription.domain.Subscription;
+import com.zab.zabusers.subscription.domain.entity.Subscription;
 import lombok.Getter;
 
 import java.util.Date;

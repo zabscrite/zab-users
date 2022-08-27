@@ -1,8 +1,10 @@
-package com.zab.zabusers.team.controller;
+package com.zab.zabusers.team.api.controller;
 
+import com.zab.zabusers.team.api.request.SignUpRequest;
+import com.zab.zabusers.team.api.response.UserResponse;
 import com.zab.zabusers.team.domain.signup.SignUpService;
 import com.zab.zabusers.team.domain.signup.exception.SignupException;
-import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

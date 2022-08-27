@@ -1,8 +1,8 @@
 package com.zab.zabusers.team.domain.signup;
 
-import com.zab.zabusers.team.domain.Team;
-import com.zab.zabusers.team.domain.TeamRepository;
-import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.entity.Team;
+import com.zab.zabusers.team.domain.repository.TeamRepository;
+import com.zab.zabusers.team.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

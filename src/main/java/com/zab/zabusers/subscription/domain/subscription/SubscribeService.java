@@ -1,5 +1,7 @@
-package com.zab.zabusers.subscription.domain;
+package com.zab.zabusers.subscription.domain.subscription;
 
+import com.zab.zabusers.subscription.domain.entity.Subscription;
+import com.zab.zabusers.subscription.domain.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

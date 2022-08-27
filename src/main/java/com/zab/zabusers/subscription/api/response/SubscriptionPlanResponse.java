@@ -1,6 +1,6 @@
 package com.zab.zabusers.subscription.api.response;
 
-import com.zab.zabusers.subscription.domain.SubscriptionPlan;
+import com.zab.zabusers.subscription.domain.entity.SubscriptionPlan;
 import lombok.Getter;
 
 @Getter

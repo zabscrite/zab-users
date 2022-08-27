@@ -1,5 +1,6 @@
-package com.zab.zabusers.team.domain;
+package com.zab.zabusers.subscription.domain.entity;
 
+import com.zab.zabusers.team.domain.entity.Team;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,32 +11,30 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "teams")
+@Table(name = "customers")
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Team {
+public class Customer {
 
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "teams_id_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customers_id_seq")
     @EqualsAndHashCode.Include
     private Long id;
 
     @Getter
     @Setter
-    @Column(nullable = false)
     private String name;
 
     @Getter
     @Setter
-    @OneToOne
-    private User owner;
+    @OneToOne(optional = false)
+    private Team team;
 
     @Getter
     @Setter
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_created", nullable = false)
+    @Column(nullable = false)
     private Date dateCreated;
-
 }

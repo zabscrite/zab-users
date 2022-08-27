@@ -1,7 +1,7 @@
 package com.zab.zabusers.shared.auth.jwt.controller;
 
-import com.zab.zabusers.team.domain.User;
-import com.zab.zabusers.team.controller.UserResponse;
+import com.zab.zabusers.team.domain.entity.User;
+import com.zab.zabusers.team.api.response.UserResponse;
 import lombok.Getter;
 
 @Getter

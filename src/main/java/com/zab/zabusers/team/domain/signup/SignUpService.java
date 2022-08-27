@@ -1,7 +1,7 @@
 package com.zab.zabusers.team.domain.signup;
 
-import com.zab.zabusers.team.domain.User;
-import com.zab.zabusers.team.domain.UserRepository;
+import com.zab.zabusers.team.domain.entity.User;
+import com.zab.zabusers.team.domain.repository.UserRepository;
 import com.zab.zabusers.team.domain.signup.exception.SignupException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
