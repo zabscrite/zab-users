@@ -21,9 +21,7 @@ public class SubscriptionApiController {
     private SubscriptionRequestConverter converter;
 
     @PostMapping
-    public Subscription create(
-            @CurrentSecurityContext(expression = "authentication.principal") Object currentUser,
-            @RequestBody @Valid SubscriptionRequest request) throws Exception {
+    public Subscription create(@RequestBody @Valid SubscriptionRequest request) throws Exception {
         SubscriptionRequestCommand command = converter.convert(request);
 
         Subscription subscription = new Subscription();
