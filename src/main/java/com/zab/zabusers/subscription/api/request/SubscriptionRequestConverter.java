@@ -26,11 +26,13 @@ public class SubscriptionRequestConverter {
 
     public SubscriptionRequestCommand convert(SubscriptionRequest request) throws Exception {
         Team team = loginContextService.getCurrentTeam();
-        // TODO: Add validation that customers and subscription plan bounded to current team
         SubscriptionRequestCommand command = new SubscriptionRequestCommand();
 
         Customer customer = customerRepository.findById(request.getCustomerId())
                 .orElseThrow(() -> new EntityFieldNotFoundException(Customer.class, "customer", request.getCustomerId()));
+        if (!team.equals(customer.getTeam())) {
+            throw new EntityFieldNotFoundException(Customer.class, "customer", request.getCustomerId());
+        }
         command.setCustomer(customer);
 
         SubscriptionPlan plan = subscriptionPlanRepository.findById(request.getSubscriptionPlanId())
