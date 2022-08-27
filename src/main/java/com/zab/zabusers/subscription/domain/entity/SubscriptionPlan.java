@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "subscription_plans")
@@ -37,4 +38,9 @@ public class SubscriptionPlan {
             @AttributeOverride(name = "unit", column = @Column(name = "duration_unit"))
     })
     private SubscriptionPlanDuration duration;
+
+    public Date computeExpiration(Date startDate) {
+        SubscriptionPlanDuration duration = getDuration();
+        return duration.calculateExpiration(startDate);
+    }
 }
