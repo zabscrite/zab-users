@@ -1,18 +1,28 @@
 package com.zab.zabusers.shared.auth.jwt.domain;
 
+import com.zab.zabusers.team.domain.Team;
+import com.zab.zabusers.team.domain.TeamRepository;
 import com.zab.zabusers.team.domain.User;
 import com.zab.zabusers.team.domain.UserRepository;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -24,8 +34,25 @@ public class JwtUserDetailsService implements UserDetailsService {
         return mapUserDetails(user.get());
     }
 
-    private UserDetails mapUserDetails(User user) {
+    public JwtUserDetails fetchDetails(Claims claims) {
+        User user = userRepository.findByUsername(claims.getSubject())
+                .orElse(null);
+
+        JwtUserDetails jwtUserDetails = mapUserDetails(user);
+        jwtUserDetails.setTeam(fetchTeamFromClaims(claims));
+
+        return jwtUserDetails;
+    }
+
+    private JwtUserDetails mapUserDetails(User user) {
         return new JwtUserDetails(user);
     }
 
+    private Team fetchTeamFromClaims(Claims claims) {
+        Map<String, Object> teamDetails = (Map<String, Object>) claims.get("team");
+        Long teamId = Long.parseLong(teamDetails.get("id").toString());
+        // or else throw exception
+        Team team = teamRepository.findById(teamId).orElse(null);
+        return team;
+    }
 }

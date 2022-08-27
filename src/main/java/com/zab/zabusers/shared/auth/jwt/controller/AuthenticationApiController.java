@@ -35,11 +35,13 @@ public class AuthenticationApiController {
                 request.getUsername(), request.getPassword());
         Authentication authentication = authenticationManager.authenticate(authToken);
 
-        User user = ((JwtUserDetails) authentication.getPrincipal()).getUser();
+        JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
+        User user = jwtUserDetails.getUser();
         Team team = teamRepository.findByOwner(user)
                 .orElse(null);
+        jwtUserDetails.setTeam(team);
 
-        String jwt = jwtGeneratorService.generateToken(user, team);
+        String jwt = jwtGeneratorService.generateToken(jwtUserDetails);
         return new LoginResponse(user, jwt);
     }
 }
