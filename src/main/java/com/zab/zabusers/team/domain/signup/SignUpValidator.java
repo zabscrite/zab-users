@@ -7,6 +7,8 @@ import com.zab.zabusers.team.domain.signup.exception.SignupException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class SignUpValidator {
 
@@ -14,8 +16,8 @@ public class SignUpValidator {
     private UserRepository userRepository;
 
     public void validate(SignUpCommand command) throws SignupException {
-        User existingUser = userRepository.findByUsername(command.getUsername());
-        if (existingUser != null) {
+        Optional<User> existingUser = userRepository.findByUsername(command.getUsername());
+        if (existingUser.isPresent()) {
             throw new EmailExistsException(command.getUsername());
         }
     }
