@@ -8,6 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -15,6 +17,8 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Subscription {
+
+    public enum Status {PENDING, OPEN, CLOSED;}
 
     @Id
     @Getter
@@ -54,8 +58,28 @@ public class Subscription {
     @Column(nullable = false)
     private Date dateCreated;
 
+    @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status = Status.PENDING;
+
     public void setPlan(SubscriptionPlan plan) {
         this.plan = plan;
         this.team = plan.getTeam();
+    }
+
+    public void open() {
+        status = Status.OPEN;
+    }
+
+    public void close() {
+        status = Status.CLOSED;
+    }
+
+    @PrePersist
+    public void normalizeDateTime() {
+        effectivityDate = Date.from(Instant.ofEpochMilli(effectivityDate.getTime())
+                .atZone(ZoneId.of("UTC"))
+                .toInstant());
     }
 }

@@ -18,6 +18,8 @@ public class SubscriptionResponse {
 
     private Date expirationDate;
 
+    private String status;
+
     public SubscriptionResponse(Subscription subscription) {
         id = subscription.getId();
         plan = new SubscriptionPlanResponse(subscription.getPlan());
@@ -25,5 +27,6 @@ public class SubscriptionResponse {
 
         effectivityDate = subscription.getEffectivityDate();
         expirationDate = subscription.getExpirationDate();
+        status = subscription.getStatus().name();
     }
 }

@@ -22,7 +22,6 @@ public class SubscriptionRequestCommand {
         Subscription subscription = new Subscription();
         subscription.setCustomer(customer);
         subscription.setPlan(plan);
-        subscription.setEffectivityDate(effectivityDate);
 
         return subscription;
     }
