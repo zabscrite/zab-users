@@ -17,13 +17,17 @@ public class SubscribeService {
 
     public Subscription subscribe(SubscriptionRequestCommand command) {
         Subscription subscription = command.getSubscription();
-
-        SubscriptionPlan plan = command.getPlan();
-        SubscriptionPlanDuration duration = plan.getDuration();
-        Date expirationDate = duration.computeExpirationDate(command.getEffectivityDate());
-        subscription.setExpirationDate(expirationDate);
+        setExpiration(command, subscription);
 
         subscriptionRepository.save(subscription);
         return subscription;
     }
+
+    private void setExpiration(SubscriptionRequestCommand command, Subscription subscription) {
+        SubscriptionPlan plan = command.getPlan();
+        SubscriptionPlanDuration duration = plan.getDuration();
+        Date expirationDate = duration.calculateExpiration(command.getEffectivityDate());
+        subscription.setExpirationDate(expirationDate);
+    }
+
 }
