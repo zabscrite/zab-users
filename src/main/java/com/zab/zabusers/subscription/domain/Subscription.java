@@ -36,6 +36,18 @@ public class Subscription {
 
     @Getter
     @Setter
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    private Date effectivityDate;
+
+    @Getter
+    @Setter
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    private Date expirationDate;
+
+    @Getter
+    @Setter
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -44,6 +56,5 @@ public class Subscription {
     public void setPlan(SubscriptionPlan plan) {
         this.plan = plan;
         this.team = plan.getTeam();
-
     }
 }
