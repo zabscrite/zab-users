@@ -28,7 +28,7 @@ public class Team {
 
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private User owner;
 
     @Getter

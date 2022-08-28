@@ -28,15 +28,15 @@ public class Subscription {
 
     @Getter
     @Setter
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Customer customer;
 
     @Getter
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SubscriptionPlan plan;
 
     @Getter
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Team team;
 
     @Getter
