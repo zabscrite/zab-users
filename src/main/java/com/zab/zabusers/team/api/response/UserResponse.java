@@ -1,6 +1,6 @@
-package com.zab.zabusers.team.controller;
+package com.zab.zabusers.team.api.response;
 
-import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.entity.User;
 import lombok.Getter;
 
 @Getter

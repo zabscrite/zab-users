@@ -1,7 +1,7 @@
 package com.zab.zabusers.shared.auth.jwt.domain;
 
-import com.zab.zabusers.team.domain.Team;
-import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.entity.Team;
+import com.zab.zabusers.team.domain.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;

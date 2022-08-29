@@ -1,4 +1,4 @@
-package com.zab.zabusers.team.controller;
+package com.zab.zabusers.shared.common.api.request.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

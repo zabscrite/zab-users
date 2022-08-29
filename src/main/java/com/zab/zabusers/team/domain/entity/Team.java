@@ -1,5 +1,6 @@
-package com.zab.zabusers.team.domain;
+package com.zab.zabusers.team.domain.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,11 +12,13 @@ import java.util.Date;
 @Entity
 @Table(name = "teams")
 @EntityListeners(AuditingEntityListener.class)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Team {
 
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "teams_id_seq")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Getter
@@ -25,7 +28,7 @@ public class Team {
 
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private User owner;
 
     @Getter

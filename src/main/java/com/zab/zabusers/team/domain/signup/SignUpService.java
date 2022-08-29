@@ -1,7 +1,7 @@
 package com.zab.zabusers.team.domain.signup;
 
-import com.zab.zabusers.team.domain.User;
-import com.zab.zabusers.team.domain.UserRepository;
+import com.zab.zabusers.team.domain.entity.User;
+import com.zab.zabusers.team.domain.repository.UserRepository;
 import com.zab.zabusers.team.domain.signup.exception.SignupException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +48,11 @@ public class SignUpService {
     }
 
     private String extractInitialNameFromEmailAddress(String name) {
-        String username = name.split("@")[0];
-        String sanitizedUsername = username.replaceAll("[^a-zA-Z\\d]", " ");
-        return Arrays.stream(sanitizedUsername.split(" "))
+        name = name.split("@")[0];
+        name = name.replaceAll("[^a-zA-Z\\d]", " ");
+        name = Arrays.stream(name.split(" "))
                 .map(s -> StringUtils.capitalize(s))
                 .collect(Collectors.joining(" "));
+        return name;
     }
 }

@@ -1,7 +1,7 @@
-package com.zab.zabusers.team.controller;
+package com.zab.zabusers.team.api.controller;
 
-import com.zab.zabusers.team.domain.Team;
-import com.zab.zabusers.team.domain.TeamRepository;
+import com.zab.zabusers.team.domain.entity.Team;
+import com.zab.zabusers.team.domain.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

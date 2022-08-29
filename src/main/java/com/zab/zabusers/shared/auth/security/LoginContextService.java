@@ -1,8 +1,8 @@
 package com.zab.zabusers.shared.auth.security;
 
 import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetails;
-import com.zab.zabusers.team.domain.Team;
-import com.zab.zabusers.team.domain.User;
+import com.zab.zabusers.team.domain.entity.Team;
+import com.zab.zabusers.team.domain.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

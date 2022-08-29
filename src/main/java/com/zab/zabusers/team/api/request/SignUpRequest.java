@@ -1,5 +1,6 @@
-package com.zab.zabusers.team.controller;
+package com.zab.zabusers.team.api.request;
 
+import com.zab.zabusers.shared.common.api.request.validator.Password;
 import com.zab.zabusers.team.domain.signup.SignUpCommand;
 import lombok.Getter;
 import lombok.Setter;
