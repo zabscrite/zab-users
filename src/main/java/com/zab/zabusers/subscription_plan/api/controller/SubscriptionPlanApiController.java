@@ -27,6 +27,9 @@ public class SubscriptionPlanApiController {
     public List<SubscriptionPlanResponse> list() {
         Team team = loginContextService.getCurrentTeam();
         List<SubscriptionPlan> subscriptionPlans = subscriptionPlanService.fetchAllByTeam(team);
-        return subscriptionPlans.stream().map(SubscriptionPlanResponse::new).collect(Collectors.toList());
+
+        return subscriptionPlans.stream()
+                .map(SubscriptionPlanResponse::new)
+                .collect(Collectors.toList());
     }
 }
