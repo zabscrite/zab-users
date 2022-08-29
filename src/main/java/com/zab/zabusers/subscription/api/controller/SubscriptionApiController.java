@@ -15,11 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -60,9 +63,10 @@ public class SubscriptionApiController {
     @GetMapping
     public List<SubscriptionResponse> list(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id:desc") String[] sort) {
         Team team = loginContextService.getCurrentTeam();
-        PageRequest pageable = PageRequest.of(page, size);
+        PageRequest pageable = buildPageRequest(page, size, sort);
         Page<Subscription> pagedSubscriptions = subscribeService.fetchAllSubscriptionsByTeam(team, pageable);
 
         return pagedSubscriptions.getContent().stream()
@@ -75,6 +79,27 @@ public class SubscriptionApiController {
     public void closeExpiredSubscriptions() {
         logger.info("Closing expired subscriptions.");
         expiredSubscriptionsService.closeExpiredSubscriptions();
+    }
+
+    private PageRequest buildPageRequest(int page, int size, String[] sortParameters) {
+        Optional<Sort> sort = Arrays.stream(sortParameters)
+                .map(parametersString -> {
+                    List<String> parameters = Arrays.stream(parametersString.split(":"))
+                            .map(String::trim)
+                            .collect(Collectors.toList());
+                    String fieldName = parameters.get(0);
+                    Sort.Direction sortDirection = parameters.size() > 1
+                            ? Sort.Direction.fromString(parameters.get(1))
+                            : Sort.Direction.DESC;
+
+                    return Sort.by(sortDirection, fieldName);
+                }).reduce(Sort::and);
+
+        if (sort.isPresent()) {
+            return PageRequest.of(page, size, sort.get());
+        } else {
+            return PageRequest.of(page, size);
+        }
     }
 
 }
