@@ -1,7 +1,7 @@
 package com.zab.zabusers.subscription.domain.subscription;
 
 import com.zab.zabusers.subscription.domain.entity.Subscription;
-import com.zab.zabusers.subscription.domain.entity.SubscriptionPlan;
+import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
 import com.zab.zabusers.subscription.domain.repository.SubscriptionRepository;
 import com.zab.zabusers.subscription.domain.subscription.exception.SubscriptionException;
 import com.zab.zabusers.team.domain.entity.Team;
