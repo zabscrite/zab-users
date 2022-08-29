@@ -13,9 +13,10 @@ public class ExpiredSubscriptionsService {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
 
-    public void closeExpiredSubscriptions() {
+    public Set<Subscription> closeExpiredSubscriptions() {
         Set<Subscription> expiringSubscriptions = subscriptionRepository.findAllExpired();
         expiringSubscriptions.stream().forEach(Subscription::close);
         subscriptionRepository.saveAll(expiringSubscriptions);
+        return expiringSubscriptions;
     }
 }
