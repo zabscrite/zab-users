@@ -46,4 +46,7 @@ public class User {
     @Column(nullable = false, columnDefinition = "varchar(255) default 'NOT_ACTIVATED'")
     private Status status = Status.NOT_ACTIVATED;
 
+    public void eraseCredentials() {
+        password = null;
+    }
 }

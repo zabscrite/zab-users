@@ -1,7 +1,9 @@
 package com.zab.zabusers.shared.auth.jwt.controller;
 
-import com.zab.zabusers.shared.auth.jwt.domain.JwtGenerator;
+import com.zab.zabusers.shared.auth.jwt.domain.JwtGeneratorService;
 import com.zab.zabusers.shared.auth.jwt.domain.JwtUserDetails;
+import com.zab.zabusers.team.domain.Team;
+import com.zab.zabusers.team.domain.TeamRepository;
 import com.zab.zabusers.team.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +24,10 @@ public class AuthenticationApiController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtGenerator jwtGenerator;
+    private JwtGeneratorService jwtGeneratorService;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @PostMapping
     public LoginResponse generateJwt(@RequestBody @Valid LoginRequest request) {
@@ -30,9 +35,13 @@ public class AuthenticationApiController {
                 request.getUsername(), request.getPassword());
         Authentication authentication = authenticationManager.authenticate(authToken);
 
-        JwtUserDetails userDetails = (JwtUserDetails) authentication.getPrincipal();
-        User user = userDetails.getUser();
-        String jwt = jwtGenerator.generateToken(user);
+        JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
+        User user = jwtUserDetails.getUser();
+        Team team = teamRepository.findByOwner(user)
+                .orElse(null);
+        jwtUserDetails.setTeam(team);
+
+        String jwt = jwtGeneratorService.generateToken(jwtUserDetails);
         return new LoginResponse(user, jwt);
     }
 }
