@@ -1,6 +1,7 @@
 package com.zab.zabusers.shared.common.api.controller;
 
 import com.zab.zabusers.shared.common.api.request.EntityFieldNotFoundException;
+import com.zab.zabusers.shared.common.domain.ResourceNotFoundException;
 import com.zab.zabusers.shared.common.domain.ZabBusinessRuleException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,16 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
+
+    // REST exception
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(ResourceNotFoundException exception) {
+        return new ResponseEntity<>(new LinkedHashMap<String, Object>() {{
+            put("code", "resource.not_found");
+            put("message", "Resource not found.");
+            put("id", exception.getId());
+        }}, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException exception) {

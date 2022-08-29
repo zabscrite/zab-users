@@ -4,13 +4,17 @@ import com.zab.zabusers.subscription.domain.entity.Subscription;
 import com.zab.zabusers.subscription.domain.entity.SubscriptionPlan;
 import com.zab.zabusers.subscription.domain.repository.SubscriptionRepository;
 import com.zab.zabusers.subscription.domain.subscription.exception.SubscriptionException;
+import com.zab.zabusers.team.domain.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class SubscribeService {
@@ -31,6 +35,14 @@ public class SubscribeService {
 
         subscriptionRepository.save(subscription);
         return subscription;
+    }
+
+    public Page<Subscription> fetchAllSubscriptionsByTeam(Team team, Pageable pageable) {
+        return subscriptionRepository.findAllByTeam(team, pageable);
+    }
+
+    public Optional<Subscription> fetchByIdAndTeam(Long id, Team team) {
+        return subscriptionRepository.findByIdAndTeam(id, team);
     }
 
     private void setEffectivityDate(SubscriptionRequestCommand command, Subscription subscription) {
@@ -67,5 +79,4 @@ public class SubscribeService {
     private LocalDateTime toUtcLocalDateTime(Instant instant) {
         return instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
     }
-
 }
