@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class SubscribeService {
+public class SubscriptionService {
 
     @Autowired
     private SubscriptionRepository subscriptionRepository;
