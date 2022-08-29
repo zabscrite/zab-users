@@ -6,18 +6,20 @@ import com.zab.zabusers.subscription.api.request.SubscriptionRequest;
 import com.zab.zabusers.subscription.api.request.SubscriptionRequestConverter;
 import com.zab.zabusers.subscription.api.response.SubscriptionResponse;
 import com.zab.zabusers.subscription.domain.entity.Subscription;
-import com.zab.zabusers.subscription.domain.subscription.ExpiredSubscriptionsService;
 import com.zab.zabusers.subscription.domain.subscription.SubscribeService;
 import com.zab.zabusers.subscription.domain.subscription.SubscriptionRequestCommand;
 import com.zab.zabusers.team.domain.entity.Team;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -29,7 +31,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/subscriptions")
 public class SubscriptionApiController {
 
-    Logger logger = LoggerFactory.getLogger(SubscriptionApiController.class);
 
     @Autowired
     private SubscriptionRequestConverter converter;
@@ -39,9 +40,6 @@ public class SubscriptionApiController {
 
     @Autowired
     private SubscribeService subscribeService;
-
-    @Autowired
-    private ExpiredSubscriptionsService expiredSubscriptionsService;
 
     @PostMapping
     public SubscriptionResponse create(@RequestBody @Valid SubscriptionRequest request) throws Exception {
@@ -74,12 +72,6 @@ public class SubscriptionApiController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/close")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void closeExpiredSubscriptions() {
-        logger.info("Closing expired subscriptions.");
-        expiredSubscriptionsService.closeExpiredSubscriptions();
-    }
 
     private PageRequest buildPageRequest(int page, int size, String[] sortParameters) {
         Optional<Sort> sort = Arrays.stream(sortParameters)
