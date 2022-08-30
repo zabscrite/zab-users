@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/subscriptions")
 public class SubscriptionApiController {
 
-
     @Autowired
     private SubscriptionRequestConverter converter;
 

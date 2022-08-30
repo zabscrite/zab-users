@@ -19,5 +19,6 @@ public class SubscriptionRequest {
     @Positive
     private Long planId;
 
+    @NotNull
     private Date effectivityDate;
 }
