@@ -25,7 +25,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(ResourceNotFoundException exception) {
         return new ResponseEntity<>(new LinkedHashMap<String, Object>() {{
             put("code", "resource.not_found");
-            put("message", "Resource not found.");
+            put("message", exception.getErrorMessage());
             put("id", exception.getId());
         }}, HttpStatus.NOT_FOUND);
     }

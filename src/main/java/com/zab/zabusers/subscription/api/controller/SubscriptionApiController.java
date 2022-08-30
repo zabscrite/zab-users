@@ -6,8 +6,8 @@ import com.zab.zabusers.subscription.api.request.SubscriptionRequest;
 import com.zab.zabusers.subscription.api.request.SubscriptionRequestConverter;
 import com.zab.zabusers.subscription.api.response.SubscriptionResponse;
 import com.zab.zabusers.subscription.domain.entity.Subscription;
-import com.zab.zabusers.subscription.domain.subscription.SubscriptionService;
 import com.zab.zabusers.subscription.domain.subscription.SubscriptionRequestCommand;
+import com.zab.zabusers.subscription.domain.subscription.SubscriptionService;
 import com.zab.zabusers.team.domain.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,7 +52,7 @@ public class SubscriptionApiController {
     public SubscriptionResponse get(@PathVariable long id) throws ResourceNotFoundException {
         Team team = loginContextService.getCurrentTeam();
         Subscription subscription = subscriptionService.fetchByIdAndTeam(id, team)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(Subscription.class, id));
 
         return new SubscriptionResponse(subscription);
     }
