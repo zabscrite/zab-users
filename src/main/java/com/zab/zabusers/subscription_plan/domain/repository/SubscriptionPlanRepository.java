@@ -6,8 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SubscriptionPlanRepository extends CrudRepository<SubscriptionPlan, Long> {
     List<SubscriptionPlan> findAllByTeam(Team team);
+
+    Optional<SubscriptionPlan> findByIdAndTeam(Long id, Team team);
 }

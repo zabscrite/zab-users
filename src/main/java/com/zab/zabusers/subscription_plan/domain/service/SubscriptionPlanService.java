@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubscriptionPlanService {
@@ -23,5 +24,9 @@ public class SubscriptionPlanService {
 
     public List<SubscriptionPlan> fetchAllByTeam(Team team) {
         return subscriptionPlanRepository.findAllByTeam(team);
+    }
+
+    public Optional<SubscriptionPlan> fetchByIdAndTeam(Long id, Team team) {
+        return subscriptionPlanRepository.findByIdAndTeam(id, team);
     }
 }
