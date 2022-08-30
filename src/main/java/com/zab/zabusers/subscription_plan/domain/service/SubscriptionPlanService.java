@@ -14,6 +14,13 @@ public class SubscriptionPlanService {
     @Autowired
     private SubscriptionPlanRepository subscriptionPlanRepository;
 
+    public SubscriptionPlan createPlan(CreateSubscriptionPlanCommand command) {
+        SubscriptionPlan plan = command.toSubscriptionPlan();
+        subscriptionPlanRepository.save(plan);
+
+        return plan;
+    }
+
     public List<SubscriptionPlan> fetchAllByTeam(Team team) {
         return subscriptionPlanRepository.findAllByTeam(team);
     }
