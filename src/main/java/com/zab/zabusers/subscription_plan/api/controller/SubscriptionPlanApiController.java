@@ -1,15 +1,21 @@
 package com.zab.zabusers.subscription_plan.api.controller;
 
 import com.zab.zabusers.shared.auth.security.LoginContextService;
+import com.zab.zabusers.subscription_plan.api.request.CreateSubscriptionPlanRequest;
+import com.zab.zabusers.subscription_plan.api.request.CreateSubscriptionPlanRequestConverter;
 import com.zab.zabusers.subscription_plan.api.response.SubscriptionPlanResponse;
 import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
+import com.zab.zabusers.subscription_plan.domain.service.CreateSubscriptionPlanCommand;
 import com.zab.zabusers.subscription_plan.domain.service.SubscriptionPlanService;
 import com.zab.zabusers.team.domain.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +24,20 @@ import java.util.stream.Collectors;
 public class SubscriptionPlanApiController {
 
     @Autowired
+    private CreateSubscriptionPlanRequestConverter subscriptionPlanRequestConverter;
+
+    @Autowired
     private SubscriptionPlanService subscriptionPlanService;
 
     @Autowired
     private LoginContextService loginContextService;
+
+    @PostMapping
+    public SubscriptionPlanResponse create(@RequestBody @Valid CreateSubscriptionPlanRequest request) {
+        CreateSubscriptionPlanCommand command = subscriptionPlanRequestConverter.convert(request);
+        SubscriptionPlan plan = subscriptionPlanService.createPlan(command);
+        return new SubscriptionPlanResponse(plan);
+    }
 
     @GetMapping
     public List<SubscriptionPlanResponse> list() {

@@ -10,9 +10,9 @@ public class SubscriptionPlanResponse {
 
     private String name;
 
-    private SubscriptionPlan.Status status;
-
     private SubscriptionPlanDurationResponse duration;
+
+    private SubscriptionPlan.Status status;
 
 
     public SubscriptionPlanResponse(SubscriptionPlan plan) {
