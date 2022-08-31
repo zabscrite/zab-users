@@ -19,9 +19,8 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class SubscriptionPlan {
 
-
-
     public enum Status {DRAFT, ACTIVE, INACTIVE, ARCHIVED;}
+
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "subscription_plans_id_seq")

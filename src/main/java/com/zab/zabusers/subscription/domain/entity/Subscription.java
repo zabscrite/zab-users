@@ -19,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Subscription {
 
-    public enum Status {PENDING, OPEN, CLOSED;}
+    public enum Status {PENDING, OPEN, CLOSED}
 
     @Id
     @Getter
