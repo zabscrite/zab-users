@@ -1,7 +1,9 @@
 package com.zab.zabusers.subscription_plan.domain.service;
 
+import com.zab.zabusers.subscription.domain.repository.SubscriptionRepository;
 import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
 import com.zab.zabusers.subscription_plan.domain.exception.PlanActivationException;
+import com.zab.zabusers.subscription_plan.domain.exception.PlanArchivalException;
 import com.zab.zabusers.subscription_plan.domain.exception.PlanDeactivationException;
 import com.zab.zabusers.subscription_plan.domain.repository.SubscriptionPlanRepository;
 import com.zab.zabusers.team.domain.entity.Team;
@@ -16,6 +18,9 @@ public class SubscriptionPlanService {
 
     @Autowired
     private SubscriptionPlanRepository subscriptionPlanRepository;
+
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
 
     public SubscriptionPlan createPlan(CreateSubscriptionPlanCommand command) {
@@ -39,8 +44,12 @@ public class SubscriptionPlanService {
         return plan;
     }
 
-    public SubscriptionPlan archive(SubscriptionPlan plan) {
-        // TODO: Check if there are any active subscriptions
+    public SubscriptionPlan archive(SubscriptionPlan plan) throws PlanArchivalException {
+        Integer subscriptionCount = subscriptionRepository.countOngoingByPlan(plan);
+        if (subscriptionCount > 0) {
+            throw new PlanArchivalException(plan, subscriptionCount);
+        }
+
         plan.archive();
         subscriptionPlanRepository.save(plan);
 
