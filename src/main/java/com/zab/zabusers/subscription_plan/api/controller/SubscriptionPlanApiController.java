@@ -6,6 +6,7 @@ import com.zab.zabusers.subscription_plan.api.request.CreateSubscriptionPlanRequ
 import com.zab.zabusers.subscription_plan.api.request.CreateSubscriptionPlanRequestConverter;
 import com.zab.zabusers.subscription_plan.api.response.SubscriptionPlanResponse;
 import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
+import com.zab.zabusers.subscription_plan.domain.exception.SubscriptionPlanManagementException;
 import com.zab.zabusers.subscription_plan.domain.service.CreateSubscriptionPlanCommand;
 import com.zab.zabusers.subscription_plan.domain.service.SubscriptionPlanService;
 import com.zab.zabusers.team.domain.entity.Team;
@@ -38,6 +39,17 @@ public class SubscriptionPlanApiController {
     public SubscriptionPlanResponse create(@RequestBody @Valid CreateSubscriptionPlanRequest request) {
         CreateSubscriptionPlanCommand command = subscriptionPlanRequestConverter.convert(request);
         SubscriptionPlan plan = subscriptionPlanService.createPlan(command);
+        return new SubscriptionPlanResponse(plan);
+    }
+
+    @PostMapping(path = "/{id}/activate")
+    public SubscriptionPlanResponse activate(@PathVariable @Valid long id)
+            throws ResourceNotFoundException, SubscriptionPlanManagementException {
+        Team team = loginContextService.getCurrentTeam();
+        SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
+                .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
+
+        subscriptionPlanService.activatePlan(plan);
         return new SubscriptionPlanResponse(plan);
     }
 
