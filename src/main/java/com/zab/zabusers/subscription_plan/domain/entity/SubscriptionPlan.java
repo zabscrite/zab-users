@@ -1,6 +1,7 @@
 package com.zab.zabusers.subscription_plan.domain.entity;
 
 import com.zab.zabusers.subscription_plan.domain.exception.PlanActivationException;
+import com.zab.zabusers.subscription_plan.domain.exception.PlanDeactivationException;
 import com.zab.zabusers.team.domain.entity.Team;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -60,6 +61,14 @@ public class SubscriptionPlan {
         }
 
         status = Status.ACTIVE;
+    }
+
+    public void deactivate() throws PlanDeactivationException {
+        if (status != Status.ACTIVE) {
+            throw new PlanDeactivationException(this);
+        }
+
+        status = Status.INACTIVE;
     }
 
     private boolean isActivatable() {
