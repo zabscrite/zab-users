@@ -45,33 +45,27 @@ public class SubscriptionPlanApiController {
     @PostMapping(path = "/{id}/activate")
     public SubscriptionPlanResponse activate(@PathVariable @Valid long id)
             throws ResourceNotFoundException, SubscriptionPlanManagementException {
-        Team team = loginContextService.getCurrentTeam();
-        SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
-                .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
-
+        SubscriptionPlan plan = fetchTeamSubscriptionPlan(id);
         subscriptionPlanService.activatePlan(plan);
+
         return new SubscriptionPlanResponse(plan);
     }
 
     @PostMapping(path = "/{id}/deactivate")
     public SubscriptionPlanResponse deactivate(@PathVariable @Valid long id)
             throws ResourceNotFoundException, SubscriptionPlanManagementException {
-        Team team = loginContextService.getCurrentTeam();
-        SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
-                .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
-
+        SubscriptionPlan plan = fetchTeamSubscriptionPlan(id);
         subscriptionPlanService.deactivatePlan(plan);
+
         return new SubscriptionPlanResponse(plan);
     }
 
     @PostMapping(path = "/{id}/archive")
     public SubscriptionPlanResponse archive(@PathVariable @Valid long id)
             throws ResourceNotFoundException, SubscriptionPlanManagementException {
-        Team team = loginContextService.getCurrentTeam();
-        SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
-                .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
-
+        SubscriptionPlan plan = fetchTeamSubscriptionPlan(id);
         subscriptionPlanService.archive(plan);
+
         return new SubscriptionPlanResponse(plan);
     }
 
@@ -87,10 +81,16 @@ public class SubscriptionPlanApiController {
 
     @GetMapping(path = "/{id}")
     public SubscriptionPlanResponse get(@PathVariable long id) throws ResourceNotFoundException {
+        SubscriptionPlan plan = fetchTeamSubscriptionPlan(id);
+
+        return new SubscriptionPlanResponse(plan);
+    }
+
+    private SubscriptionPlan fetchTeamSubscriptionPlan(long id) throws ResourceNotFoundException {
         Team team = loginContextService.getCurrentTeam();
         SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
                 .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
 
-        return new SubscriptionPlanResponse(plan);
+        return plan;
     }
 }
