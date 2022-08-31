@@ -39,6 +39,14 @@ public class SubscriptionPlanService {
         return plan;
     }
 
+    public SubscriptionPlan archive(SubscriptionPlan plan) {
+        // TODO: Check if there are any active subscriptions
+        plan.archive();
+        subscriptionPlanRepository.save(plan);
+
+        return plan;
+    }
+
     public List<SubscriptionPlan> fetchAllByTeam(Team team) {
         return subscriptionPlanRepository.findAllByTeam(team);
     }
