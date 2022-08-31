@@ -1,5 +1,6 @@
 package com.zab.zabusers.subscription_plan.domain.entity;
 
+import com.zab.zabusers.subscription_plan.domain.exception.PlanActivationException;
 import com.zab.zabusers.team.domain.entity.Team;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -50,4 +51,13 @@ public class SubscriptionPlan {
         SubscriptionPlanDuration duration = getDuration();
         return duration.calculateExpiration(startDate);
     }
+
+    public void activate() throws PlanActivationException {
+        if (status != Status.DRAFT) {
+            throw new PlanActivationException(this);
+        }
+
+        status = Status.ACTIVE;
+    }
+
 }
