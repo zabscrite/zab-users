@@ -8,7 +8,9 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "subscription_plans")
@@ -53,11 +55,16 @@ public class SubscriptionPlan {
     }
 
     public void activate() throws PlanActivationException {
-        if (status != Status.DRAFT) {
+        if (!isActivatable()) {
             throw new PlanActivationException(this);
         }
 
         status = Status.ACTIVE;
+    }
+
+    private boolean isActivatable() {
+        List<Status> allowedStatuses = Arrays.asList(Status.DRAFT, Status.INACTIVE);
+        return allowedStatuses.contains(status);
     }
 
 }
