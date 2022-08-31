@@ -64,6 +64,17 @@ public class SubscriptionPlanApiController {
         return new SubscriptionPlanResponse(plan);
     }
 
+    @PostMapping(path = "/{id}/archive")
+    public SubscriptionPlanResponse archive(@PathVariable @Valid long id)
+            throws ResourceNotFoundException, SubscriptionPlanManagementException {
+        Team team = loginContextService.getCurrentTeam();
+        SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
+                .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
+
+        subscriptionPlanService.archive(plan);
+        return new SubscriptionPlanResponse(plan);
+    }
+
     @GetMapping
     public List<SubscriptionPlanResponse> list() {
         Team team = loginContextService.getCurrentTeam();
