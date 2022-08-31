@@ -53,6 +53,17 @@ public class SubscriptionPlanApiController {
         return new SubscriptionPlanResponse(plan);
     }
 
+    @PostMapping(path = "/{id}/deactivate")
+    public SubscriptionPlanResponse deactivate(@PathVariable @Valid long id)
+            throws ResourceNotFoundException, SubscriptionPlanManagementException {
+        Team team = loginContextService.getCurrentTeam();
+        SubscriptionPlan plan = subscriptionPlanService.fetchByIdAndTeam(id, team)
+                .orElseThrow(() -> new ResourceNotFoundException(SubscriptionPlan.class, id));
+
+        subscriptionPlanService.deactivatePlan(plan);
+        return new SubscriptionPlanResponse(plan);
+    }
+
     @GetMapping
     public List<SubscriptionPlanResponse> list() {
         Team team = loginContextService.getCurrentTeam();
