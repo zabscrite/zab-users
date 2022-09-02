@@ -1,5 +1,6 @@
 package com.zab.zabusers.subscription.domain.entity;
 
+import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
 import com.zab.zabusers.team.domain.entity.Team;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Subscription {
 
-    public enum Status {PENDING, OPEN, CLOSED;}
+    public enum Status {PENDING, OPEN, CLOSED}
 
     @Id
     @Getter

@@ -6,8 +6,8 @@ import com.zab.zabusers.subscription.api.request.SubscriptionRequest;
 import com.zab.zabusers.subscription.api.request.SubscriptionRequestConverter;
 import com.zab.zabusers.subscription.api.response.SubscriptionResponse;
 import com.zab.zabusers.subscription.domain.entity.Subscription;
-import com.zab.zabusers.subscription.domain.subscription.SubscribeService;
 import com.zab.zabusers.subscription.domain.subscription.SubscriptionRequestCommand;
+import com.zab.zabusers.subscription.domain.subscription.SubscriptionService;
 import com.zab.zabusers.team.domain.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/subscriptions")
 public class SubscriptionApiController {
 
-
     @Autowired
     private SubscriptionRequestConverter converter;
 
@@ -39,12 +38,12 @@ public class SubscriptionApiController {
     private LoginContextService loginContextService;
 
     @Autowired
-    private SubscribeService subscribeService;
+    private SubscriptionService subscriptionService;
 
     @PostMapping
     public SubscriptionResponse create(@RequestBody @Valid SubscriptionRequest request) throws Exception {
         SubscriptionRequestCommand command = converter.convert(request);
-        Subscription subscription = subscribeService.subscribe(command);
+        Subscription subscription = subscriptionService.subscribe(command);
 
         return new SubscriptionResponse(subscription);
     }
@@ -52,8 +51,8 @@ public class SubscriptionApiController {
     @GetMapping(path = "/{id}")
     public SubscriptionResponse get(@PathVariable long id) throws ResourceNotFoundException {
         Team team = loginContextService.getCurrentTeam();
-        Subscription subscription = subscribeService.fetchByIdAndTeam(id, team)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+        Subscription subscription = subscriptionService.fetchByIdAndTeam(id, team)
+                .orElseThrow(() -> new ResourceNotFoundException(Subscription.class, id));
 
         return new SubscriptionResponse(subscription);
     }
@@ -65,7 +64,7 @@ public class SubscriptionApiController {
             @RequestParam(defaultValue = "id:desc") String[] sort) {
         Team team = loginContextService.getCurrentTeam();
         PageRequest pageable = buildPageRequest(page, size, sort);
-        Page<Subscription> pagedSubscriptions = subscribeService.fetchAllSubscriptionsByTeam(team, pageable);
+        Page<Subscription> pagedSubscriptions = subscriptionService.fetchAllSubscriptionsByTeam(team, pageable);
 
         return pagedSubscriptions.getContent().stream()
                 .map(SubscriptionResponse::new)

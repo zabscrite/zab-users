@@ -1,5 +1,7 @@
-package com.zab.zabusers.subscription.domain.entity;
+package com.zab.zabusers.subscription_plan.domain.entity;
 
+import com.zab.zabusers.subscription_plan.domain.exception.PlanActivationException;
+import com.zab.zabusers.subscription_plan.domain.exception.PlanDeactivationException;
 import com.zab.zabusers.team.domain.entity.Team;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,7 +9,9 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "subscription_plans")
@@ -15,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class SubscriptionPlan {
 
-    public enum Status {DRAFT, ACTIVE, INACTIVE, ARCHIVED}
+    public enum Status {DRAFT, ACTIVE, INACTIVE, ARCHIVED;}
 
     @Id
     @Getter
@@ -50,4 +54,30 @@ public class SubscriptionPlan {
         SubscriptionPlanDuration duration = getDuration();
         return duration.calculateExpiration(startDate);
     }
+
+    public void activate() throws PlanActivationException {
+        if (!isActivatable()) {
+            throw new PlanActivationException(this);
+        }
+
+        status = Status.ACTIVE;
+    }
+
+    public void deactivate() throws PlanDeactivationException {
+        if (status != Status.ACTIVE) {
+            throw new PlanDeactivationException(this);
+        }
+
+        status = Status.INACTIVE;
+    }
+
+    public void archive() {
+        status = Status.ARCHIVED;
+    }
+
+    private boolean isActivatable() {
+        List<Status> allowedStatuses = Arrays.asList(Status.DRAFT, Status.INACTIVE);
+        return allowedStatuses.contains(status);
+    }
+
 }

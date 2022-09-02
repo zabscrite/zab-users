@@ -1,4 +1,4 @@
-package com.zab.zabusers.subscription.domain.entity;
+package com.zab.zabusers.subscription_plan.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

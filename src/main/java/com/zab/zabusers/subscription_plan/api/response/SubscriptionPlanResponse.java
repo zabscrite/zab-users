@@ -1,4 +1,4 @@
-package com.zab.zabusers.subscription.api.response;
+package com.zab.zabusers.subscription_plan.api.response;
 
 import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
 import lombok.Getter;
@@ -10,8 +10,15 @@ public class SubscriptionPlanResponse {
 
     private String name;
 
+    private SubscriptionPlanDurationResponse duration;
+
+    private SubscriptionPlan.Status status;
+
+
     public SubscriptionPlanResponse(SubscriptionPlan plan) {
         id = plan.getId();
         name = plan.getName();
+        status = plan.getStatus();
+        duration = new SubscriptionPlanDurationResponse(plan.getDuration());
     }
 }

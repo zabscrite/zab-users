@@ -2,7 +2,7 @@ package com.zab.zabusers.subscription.domain.subscription;
 
 import com.zab.zabusers.subscription.domain.entity.Customer;
 import com.zab.zabusers.subscription.domain.entity.Subscription;
-import com.zab.zabusers.subscription.domain.entity.SubscriptionPlan;
+import com.zab.zabusers.subscription_plan.domain.entity.SubscriptionPlan;
 import lombok.Getter;
 import lombok.Setter;
 
